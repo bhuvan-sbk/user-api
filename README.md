@@ -61,5 +61,239 @@ This is a RESTful API built with **Node.js**, **Express**, and **Sequelize**. It
 ### 5. Quality and Structure of the Codebase
 - The codebase is organized into modular components:
 
+## Project Setup
+
+Installation
+
+1.Clone the repository:
+
+git clone https://github.com/bhuvan-sbk/user-api.git
+   cd user-api
+
+
+ 2.Install dependencies:
+    npm install
+
+
+3.Set up the database:
+-Create a PostgreSQL database named users_db.
+
+-Update the .env file with your database credentials:
+
+
+DB_NAME=users_db
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
+DB_HOST=localhost
+PORT=3000
+
+
+4.Start the server:
+npm run dev/node src/app.js
+
+
+
+1. POST /users - Create Users
+First, let's create some test users:
+
+POST http://localhost:3500/users
+Content-Type: application/json
+
+Body 1:
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+}
+
+Body 2:
+{
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com"
+}
+
+Body 3:
+{
+    "name": "Mike Johnson",
+    "email": "mike.johnson@example.com"
+}
+
+Expected Response (Status: 201):
+
+{
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "createdAt": "2024-01-31T...",
+    "updatedAt": "2024-01-31T..."
+}
+
+2.GET /users - Get All Users
+GET http://localhost:3500/users
+
+
+Expected Response (Status: 200):
+
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "createdAt": "2024-01-31T...",
+        "updatedAt": "2024-01-31T..."
+    },
+    {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "createdAt": "2024-01-31T...",
+        "updatedAt": "2024-01-31T..."
+    },
+    {
+        "id": 3,
+        "name": "Mike Johnson",
+        "email": "mike.johnson@example.com",
+        "createdAt": "2024-01-31T...",
+        "updatedAt": "2024-01-31T..."
+    }
+]
+
+
+3.GET /users/:id - Get Single User
+GET http://localhost:3500/users/1
+
+Expected Response (Status: 200):
+{
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "createdAt": "2024-01-31T...",
+    "updatedAt": "2024-01-31T..."
+}
+
+4. PUT /users/:id - Update User
+
+PUT http://localhost:3500/users/1
+Content-Type: application/json
+
+{
+    "name": "John Doe Updated",
+    "email": "john.updated@example.com"
+}
+
+
+Expected Response (Status: 200):
+{
+    "id": 1,
+    "name": "John Doe Updated",
+    "email": "john.updated@example.com",
+    "createdAt": "2024-01-31T...",
+    "updatedAt": "2024-01-31T..."
+}
+
+5. DELETE /users/:id - Delete User
+
+
+DELETE http://localhost:3500/users/3
+Expected Response (Status: 204 No Content)
+
+
+Here's how to test these in Postman step by step:
+
+Testing POST (Create):
+
+Open Postman
+Select "POST" method
+Enter URL: http://localhost:3000/users
+Go to "Headers" tab
+Add: Content-Type: application/json
+Go to "Body" tab
+Select "raw" and "JSON"
+Copy and paste the test data
+Click "Send"
+
+
+Testing GET (Read All):
+
+Create new tab
+Select "GET" method
+Enter URL: http://localhost:3000/users
+Click "Send"
+
+
+Testing GET by ID (Read One):
+
+Create new tab
+Select "GET" method
+Enter URL: http://localhost:3000/users/1
+Click "Send"
+
+
+Testing PUT (Update):
+
+Create new tab
+Select "PUT" method
+Enter URL: http://localhost:3000/users/1
+Go to "Headers" tab
+Add: Content-Type: application/json
+Go to "Body" tab
+Select "raw" and "JSON"
+Copy and paste the update data
+Click "Send"
+
+
+Testing DELETE:
+
+Create new tab
+Select "DELETE" method
+Enter URL: http://localhost:3000/users/3
+Click "Send"
+
+
+
+Error Testing:
+
+1.Invalid Email Format:
+
+POST http://localhost:3000/users
+{
+    "name": "Test User",
+    "email": "invalid-email"
+}
+
+2.Duplicate Email:
+
+POST http://localhost:3000/users
+{
+    "name": "Another User",
+    "email": "john.doe@example.com"
+}
+
+3.Invalid ID:
+
+GET http://localhost:3000/users/999
+
+
+
+
+
+
+   
+
+
+
+   
+project-root/
+├── src/
+│   ├── controllers/       # Controller logic
+│   ├── models/            # Database models
+│   ├── routes/            # API routes
+│   ├── middleware/        # Middleware functions
+│   ├── config/            # Configuration files
+│   └── app.js             # Main application file
+├── tests/                 # Unit tests
+├── .env                   # Environment variables
+├── .gitignore             # Git ignore file
+└── package.json           # Project dependencies
+
 
 
